@@ -1,0 +1,25 @@
+# DayZ 运行生成配置文件（本地产生，不需要上传仓库）
+mod_order.json
+types_config.json
+
+# DayZ 服务端资源、存档、地图模组（体积巨大禁止上传）
+mpmissions/
+map_profiles/
+db/ModTypes/
+!Workshop/
+
+# DayZ 日志、崩溃转储、备份文件
+*.log
+*.RPT
+*.mdmp
+*.bak
+
+# 系统垃圾文件
+Thumbs.db
+.DS_Store
+*.tmp
+*.cache
+
+# VS 配置、PowerShell 缓存
+.vs/
+*.user
