@@ -1,25 +1,104 @@
-# DayZ 运行生成配置文件（本地产生，不需要上传仓库）
-mod_order.json
-types_config.json
+# ============================================
+# 操作系统 / 编辑器 / IDE 垃圾文件
+# ============================================
+# Windows
+Thumbs.db
+desktop.ini
+$RECYCLE.BIN/
 
-# DayZ 服务端资源、存档、地图模组（体积巨大禁止上传）
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Linux
+*~
+
+# Visual Studio / VS Code
+.vs/
+.vscode/
+*.user
+*.suo
+*.cache
+*.tmp
+*.temp
+
+# ============================================
+# PowerShell / 脚本运行时产物
+# ============================================
+*.ps1.bak
+*.ps1.old
+*.ps1.save
+*.psm1?  # 如果有临时模块
+*.psd1?  # 如果有清单文件备份
+*.log
+
+# ============================================
+# DayZ 服务端相关（避免上传大文件）
+# ============================================
+# 服务端核心程序（可执行文件不要传，但如果你本意不传二进制，建议忽略）
+DayZServer.exe
+DayZServer_x64.exe
+launcher.exe
+steamclient.dll
+steam_api64.dll
+
+# 地图、模组源（体积巨大）
 mpmissions/
 map_profiles/
 db/ModTypes/
 !Workshop/
+@*/           # 如果服务器根目录下有直接解压的模组文件夹（非junction），也忽略
 
-# DayZ 日志、崩溃转储、备份文件
+# 配置文件（本地特有，不需要版本控制）
+mod_order.json
+types_config.json
+serverDZ.cfg    # 通常每个人配置不同，建议忽略，提供示例文件即可
+
+# 日志和崩溃转储
 *.log
 *.RPT
 *.mdmp
+*.dmp
+*.stackdump
+*.crash
+
+# 备份文件
 *.bak
+*.backup
+*.old
+*.orig
 
-# 系统垃圾文件
-Thumbs.db
-.DS_Store
-*.tmp
-*.cache
+# ============================================
+# 用户数据 / 存档（不要上传个人存档）
+# ============================================
+players/
+storage/
+profiles/
+map_profiles/
+*.db
+*.sqlite
+*.sqlite3
 
-# VS 配置、PowerShell 缓存
-.vs/
-*.user
+# ============================================
+# 临时下载或构建产物
+# ============================================
+*.zip
+*.7z
+*.rar
+*.tar.gz
+*.pdb
+*.ilk
+*.exp
+*.lib
+
+# ============================================
+# 其他常见忽略
+# ============================================
+.idea/
+*.swp
+*.swo
+*~
