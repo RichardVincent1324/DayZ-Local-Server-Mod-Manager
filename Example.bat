@@ -19,6 +19,7 @@ cd /D "%serverDirectory%"
 if not exist "%serverProfile%" ( 
 mkdir %serverProfile% > nul
 ) 
+:: 检测Steam已运行才会启动游戏
 tasklist /fi "imagename eq steam.exe" | findstr steam.exe >nul
 if %errorlevel% equ 0 (
     start "" "steam://rungameid/221100"
