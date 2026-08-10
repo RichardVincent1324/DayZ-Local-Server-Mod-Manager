@@ -8,9 +8,8 @@ setlocal
 :: This file is a template for the DayZ Local Server Mod Manager.
 ::
 :: Before using it:
-::   1. Copy this file to "LocalServer.bat".
-::   2. Set "serverDirectory" to your DayZ Server folder.
-::   3. Configure the remaining server settings if necessary.
+::   1. Set "serverDirectory" to your DayZ Server folder.
+::   2. Configure the remaining server settings if necessary.
 ::
 :: The Mod Manager automatically updates the "modList" variable.
 :: Do not manually edit the modList line after configuring the
@@ -29,8 +28,7 @@ set "serverName=LocalServer"
 :: DayZ Server installation directory
 :: IMPORTANT: Change this to your actual DayZ Server folder.
 :: Example:
-::   C:\DayZServer
-::   D:\Games\DayZServer
+::   D:\DayZServer
 :: ------------------------------------------------------------
 set "serverDirectory=C:\Path\To\DayZServer"
 
@@ -126,11 +124,7 @@ start "%serverName%" /min "DayZServer_x64.exe" ^
     %modList% ^
     -cpuCount=%serverCPU% ^
     -noBattlEye ^
-    -maxMem=4096 ^
-    -malloc=tbb4malloc_bi ^
-    -nosplash ^
-    -filePatching ^
-    -exThreads=4
+    -nosplash
 
 
 :: ============================================================
