@@ -77,7 +77,7 @@ set "modList=-mod=;"
 
 
 :: Set the Command Prompt window title
-title %serverName%
+title "%serverName%"
 
 
 :: Change to the DayZ Server directory
@@ -118,14 +118,13 @@ echo Starting DayZ Server...
 echo.
 
 start "%serverName%" /min "DayZServer_x64.exe" ^
-    -config=%serverConfig% ^
+    -config="%serverConfig%" ^
     -port=%serverPort% ^
-    -profiles=%serverProfile% ^
-    %modList% ^
+    -profiles="%serverProfile%" ^
+    "%modList%" ^
     -cpuCount=%serverCPU% ^
     -noBattlEye ^
     -nosplash
-
 
 :: ============================================================
 :: Check whether Steam is running
