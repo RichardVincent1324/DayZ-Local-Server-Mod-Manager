@@ -1172,11 +1172,33 @@ $Script:BtnComplete.Add_Click({
 
         Add-Log -Message "==================== Operation Summary ====================" -Color "Cyan"
 
-        # --- 2. Save mod order to mod_order.json ---
-        Write-ModOrder -ModNames $allModsInOrder
+        # --- Preflight validation ---
+        Add-Log -Message "Preflight: validating environment..." -Color "Gray"
 
-        # --- 3. Update batch file ---
-        Write-BatModList -ModNames $checkedMods
+        if (-not (Test-Path -LiteralPath $WorkshopPath -PathType Container)) {
+            throw "[PREFLIGHT] Workshop directory not found: $WorkshopPath"
+        }
+        if (-not (Test-Path -LiteralPath $BatFilePath -PathType Leaf)) {
+            throw "[PREFLIGHT] Batch file not found: $BatFilePath"
+        }
+        $batContent = Get-Content -LiteralPath $BatFilePath -Raw
+        if ($batContent -notmatch '(?m)set\s+"modList=') {
+            throw "[PREFLIGHT] Batch file does not contain a modList line"
+        }
+        $missingMods = @($checkedMods | Where-Object { -not (Test-Path -LiteralPath (Join-Path $WorkshopPath $_) -PathType Container) })
+        if ($missingMods.Count -gt 0) {
+            throw "[PREFLIGHT] Mod(s) not found in Workshop: $($missingMods -join ', ')"
+        }
+
+        Add-Log -Message "Preflight checks passed" -Color "Green"
+
+        # --- 2. Update batch file ---
+        if (-not (Write-BatModList -ModNames $checkedMods)) {
+            throw "[ERROR] Failed to update batch file. No Junction changes were made."
+        }
+
+        # --- 3. Save mod order to mod_order.json ---
+        Write-ModOrder -ModNames $allModsInOrder
 
         # --- 4. Sync Junctions ---
         $createdCount  = 0
