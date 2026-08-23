@@ -118,9 +118,9 @@ echo Starting DayZ Server...
 echo.
 
 start "%serverName%" /min "DayZServer_x64.exe" ^
-    -config="%serverConfig%" ^
+    -config=%serverConfig% ^
     -port=%serverPort% ^
-    -profiles="%serverProfile%" ^
+    -profiles=%serverProfile% ^
     "%modList%" ^
     -cpuCount=%serverCPU% ^
     -noBattlEye ^
