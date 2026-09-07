@@ -2,7 +2,7 @@
 setlocal
 
 :: ============================================================
-:: DayZ Local Server - Example Launcher
+:: DayZ Local Server - Example Launcher for v2.0.1
 :: ============================================================
 ::
 :: This file is a template for the DayZ Local Server Mod Manager.
@@ -51,7 +51,7 @@ set "serverConfig=serverDZ.cfg"
 :: The Mod Manager can automatically change this when switching
 :: maps. Leave this setting enabled if you use map profiles.
 :: ------------------------------------------------------------
-set "serverProfile=map_profiles\chernarusplus"
+set "serverProfile=map_profiles\dayzOffline.chernarusplus"
 
 
 :: ------------------------------------------------------------
@@ -65,7 +65,7 @@ set "serverCPU=4"
 ::
 :: IMPORTANT:
 :: This line is automatically managed by the DayZ Local Server
-:: Mod Manager. Do not manually edit it.
+:: Mod Manager V2. Do not manually edit it.
 :: ------------------------------------------------------------
 set "modList=-mod=;"
 
@@ -123,7 +123,6 @@ start "%serverName%" /min "DayZServer_x64.exe" ^
     -profiles=%serverProfile% ^
     "%modList%" ^
     -cpuCount=%serverCPU% ^
-    -noBattlEye ^
     -nosplash
 
 :: ============================================================
