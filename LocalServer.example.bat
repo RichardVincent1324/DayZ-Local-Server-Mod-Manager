@@ -2,7 +2,7 @@
 setlocal
 
 :: ============================================================
-:: DayZ Local Server - Example Launcher for v2.0.1
+:: DayZ Local Server - Example Launcher for v2.1.0
 :: ============================================================
 ::
 :: This file is a template for the DayZ Local Server Mod Manager.
@@ -11,8 +11,9 @@ setlocal
 ::   1. Set "serverDirectory" to your DayZ Server folder.
 ::   2. Configure the remaining server settings if necessary.
 ::
-:: The Mod Manager automatically updates the "modList" variable.
-:: Do not manually edit the modList line after configuring the
+:: The Mod Manager automatically updates the "modList",
+:: "serverProfile" and "serverConfig" variables when you Apply.
+:: Do not manually edit those lines after configuring the
 :: Mod Manager, as your changes may be overwritten.
 ::
 :: ============================================================
@@ -28,7 +29,7 @@ set "serverName=LocalServer"
 :: DayZ Server installation directory
 :: IMPORTANT: Change this to your actual DayZ Server folder.
 :: Example:
-::   D:\DayZServer
+::   D:\...\DayZServer
 :: ------------------------------------------------------------
 set "serverDirectory=C:\Path\To\DayZServer"
 
@@ -41,6 +42,10 @@ set "serverPort=2302"
 
 :: ------------------------------------------------------------
 :: Server configuration file
+::
+:: Managed by the Mod Manager: on Apply this is rewritten to the
+:: active preset's serverDZ.cfg. The value below is only the
+:: fallback used before the first Apply.
 :: ------------------------------------------------------------
 set "serverConfig=serverDZ.cfg"
 
@@ -48,10 +53,11 @@ set "serverConfig=serverDZ.cfg"
 :: ------------------------------------------------------------
 :: Server profile directory
 ::
-:: The Mod Manager can automatically change this when switching
-:: maps. Leave this setting enabled if you use map profiles.
+:: Managed by the Mod Manager: on Apply this is rewritten to the
+:: active preset's profiles folder. The value below is only the
+:: fallback used before the first Apply.
 :: ------------------------------------------------------------
-set "serverProfile=map_profiles\dayzOffline.chernarusplus"
+set "serverProfile=DayZ-Mod-Manager-V2\Presets\dayzOffline.chernarusplus\__default_preset__\profiles"
 
 
 :: ------------------------------------------------------------
@@ -67,7 +73,21 @@ set "serverCPU=4"
 :: This line is automatically managed by the DayZ Local Server
 :: Mod Manager V2. Do not manually edit it.
 :: ------------------------------------------------------------
-set "modList=-mod=;"
+set "modList=-mod="
+
+
+:: ------------------------------------------------------------
+:: Server-side mod list (-serverMod=)
+::
+:: NOT managed by the Mod Manager. For advanced users only.
+:: IMPORTANT: DZMMV2 does NOT create junctions for these mods.
+:: You MUST copy physical @‑prefixed mod folders into your
+:: DayZServer root directory. Referencing Steam !Workshop will not work.
+:: Example: set "serverMod=-serverMod=@ServerMod1;@ServerMod2"
+:: Separate multiple mods with semicolon ;
+:: This line will NEVER be overwritten by Mod Manager.
+:: ------------------------------------------------------------
+set "serverMod=-serverMod="
 
 
 :: ============================================================
@@ -122,32 +142,32 @@ start "%serverName%" /min "DayZServer_x64.exe" ^
     -port=%serverPort% ^
     -profiles=%serverProfile% ^
     "%modList%" ^
+    "%serverMod%" ^
     -cpuCount=%serverCPU% ^
     -nosplash
 
 :: ============================================================
-:: Check whether Steam is running
+::  Launch the DayZ client through Steam
 :: ============================================================
 
-tasklist /FI "IMAGENAME eq steam.exe" 2>NUL | find /I "steam.exe" >NUL
-
-if %ERRORLEVEL% EQU 0 (
-    echo.
-    echo Steam is running.
-    echo Launching DayZ...
-    echo.
-    
-    start "" "steam://rungameid/221100"
-) else (
-    echo.
-    echo [WARNING] Steam is not running.
-    echo.
-    echo The DayZ server has been started,
-    echo but the DayZ client was not launched.
-    echo.
-    echo Please start Steam and launch DayZ manually.
-    echo.
-)
+:: tasklist /FI "IMAGENAME eq steam.exe" 2>NUL | find /I "steam.exe" >NUL
+:: 
+:: if %ERRORLEVEL% EQU 0 (
+::     echo.
+::     echo Steam is running.
+::     echo Launching DayZ...
+::     echo.
+::     start "" "steam://rungameid/221100"
+:: ) else (
+::     echo.
+::     echo [WARNING] Steam is not running.
+::     echo.
+::     echo The DayZ server has been started,
+::     echo but the DayZ client was not launched.
+::     echo.
+::     echo Please start Steam and launch DayZ manually.
+::     echo.
+:: )
 
 
 echo Server startup command completed.
